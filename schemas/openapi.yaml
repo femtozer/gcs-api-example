@@ -1,0 +1,95 @@
+openapi: 3.0.3
+info:
+  title: File API example
+  version: 0.1.0
+servers:
+  - url: /api
+tags:
+  - name: status
+    description: Health check
+  - name: file
+    description: File operations
+paths:
+  /status:
+    get:
+      tags:
+        - status
+      summary: Get API status
+      description: Get API status
+      responses:
+        '200':
+          description: Status OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Status'
+  /upload:
+    post:
+      summary: Upload file
+      description: Upload file
+      tags:
+        - file
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+      responses:
+        '200':
+          description: Signed URL to download the file
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UploadResponse'
+
+  /download/{filename}:
+    get:
+      tags:
+        - file
+      summary: Download file
+      description: Download file
+      operationId: downloadFile
+      parameters:
+        - name: filename
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: A file
+          content:
+            application/octet-stream:
+              schema:
+                type: string
+                format: binary
+        '404':
+          description: File not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorMessage'
+components:
+  schemas:
+    Status:
+      type: object
+      properties:
+        status:
+          type: string
+          example: OK
+    UploadResponse:
+      type: object
+      properties:
+        url:
+          type: string
+          example: http://example.com/myfile
+    ErrorMessage:
+      type: object
+      properties:
+        message:
+          type: string
+          example: File not found
