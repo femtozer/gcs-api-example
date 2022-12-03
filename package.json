@@ -1,9 +1,9 @@
 {
   "name": "t6ols-api",
   "version": "0.1.0",
-  "main": "server.js",
+  "main": "index.js",
   "repository": "git@github.com:femtozer/t6ols-api.git",
-  "author": "femtozer <eliott.benoit@devoteamgcloud.com>",
+  "author": "Eliott Benoit <eliott.benoit4@gmail.com>",
   "license": "MIT",
   "dependencies": {
     "@fastify/cors": "^8.2.0",
