@@ -6,9 +6,9 @@ servers:
   - url: /api
 tags:
   - name: status
-    description: Health check
+    description: API status
   - name: file
-    description: File operations
+    description: File upload/download
 paths:
   /status:
     get:
@@ -26,7 +26,7 @@ paths:
   /upload:
     post:
       summary: Upload file
-      description: Upload file
+      description: Upload a file to a Google Cloud Storage bucket, then return a download signed url
       tags:
         - file
       requestBody:
@@ -51,8 +51,7 @@ paths:
       tags:
         - file
       summary: Download file
-      description: Download file
-      operationId: downloadFile
+      description: Download a file from a Google Cloud Storage bucket
       parameters:
         - name: filename
           in: path
@@ -61,7 +60,7 @@ paths:
             type: string
       responses:
         '200':
-          description: A file
+          description: Downloaded file
           content:
             application/octet-stream:
               schema:
