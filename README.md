@@ -1,4 +1,4 @@
-# File API example
+# GCS API example
 
 ## Stack
 
